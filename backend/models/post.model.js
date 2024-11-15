@@ -4,9 +4,9 @@ const postSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    image:{type:String, required:true},//requirement can be changed according to future
-    category: { type: String, enum: ['Transport', 'Financial Help', 'Rental', 'Skills', 'Other'] },
-    location: { type: String },  // Could be a string [latitude/longitude]
+    image:{type:String},
+    category: { type: String, enum: ['Transport', 'Rental', 'Skills'],required:true },
+    location: { type: String }, 
     status: { type: String, enum: ['Open', 'In Progress', 'Closed'], default: 'Open' },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 }, { timestamps: true });
