@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
     image:{type:String},
     category: { type: String, enum: ['Transport', 'Rental', 'Skills'],required:true },
     location: { type: String }, 
-    status: { type: String, enum: ['Open', 'In Progress', 'Closed'], default: 'Open' },
+    status: { type: String, enum: ['In Progress', 'Closed'], default: 'In Progress' },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 }, { timestamps: true });
 

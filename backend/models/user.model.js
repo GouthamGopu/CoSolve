@@ -11,9 +11,11 @@ const userSchema = new mongoose.Schema({
     emergencyContact: {
         name: { type: String },
         phoneNumber: { type: String},
-    },
+    }, 
     posts:[{type:mongoose.Schema.Types.ObjectId, ref:'Post'}],
     bookmarks:[{type:mongoose.Schema.Types.ObjectId, ref:'Post'}],
-    ratings: { type: Number, default: 0 },
+    ongoing:[{type:mongoose.Schema.Types.ObjectId, ref:'Post'}],
+    completed: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    ratings: [{ type: Number }],
 },{timestamps:true});
 export const User = mongoose.model('User', userSchema);

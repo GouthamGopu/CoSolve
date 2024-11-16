@@ -103,7 +103,20 @@ export const login = async (req, res) => {
             })
         );
 
-        // Send only relevant user data in response
+        const populatedOngoing = await Promise.all(
+            user.ongoing.map(async (ongoingId) => {
+                const ongoingPost = await Post.findById(ongoingId);
+                return ongoingPost ? ongoingPost : null;
+            })
+        );
+
+        const populatedCompleted = await Promise.all(
+            user.completed.map(async (completedId) => {
+                const completedPost = await Post.findById(completedId);
+                return completedPost ? completedPost : null;
+            })
+        );
+
         user = {
             _id: user._id,
             username: user.username,
@@ -115,8 +128,11 @@ export const login = async (req, res) => {
             emergencyContact: user.emergencyContact,
             posts: populatedPosts.filter(Boolean), // Filter out nulls
             bookmarks: populatedBookmarks.filter(Boolean),
+            ongoing: populatedOngoing.filter(Boolean),
+            completed: populatedCompleted.filter(Boolean),
             ratings: user.ratings,
         };
+
 
         // Send response with token and user data
         return res
