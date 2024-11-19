@@ -1,0 +1,7 @@
+.root {
+  background-image: url('images/bg.webp');
+  background-repeat: repeat-y;
+  min-height: 100vh;
+  max-height: fit-content;
+  font-family: sansserif;
+}
