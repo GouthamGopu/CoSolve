@@ -1,8 +1,34 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { setSelectedPost } from '../../redux/postSlice';
+import { setAuthUser } from '../../redux/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { FaUser } from 'react-icons/fa';
 
 function Header() {
+  const [logging, setLogging] = useState(false)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector(store => store.auth);
+  const logoutHandler = async () => {
+    setLogging(true);
+    try {
+      const res = await axios.get('http://localhost:8000/api/v1/user/logout', { withCredentials: true });
+      if (res.data.success) {
+        dispatch(setAuthUser(null));
+        navigate("/");
+        console.log(res.data.message);
+      }
+    } catch (error) {
+      console.log(error.response.data.message);
+    } finally {
+      setLogging(false);
+    }
+  }
+
   return (
     <Navbar expand="lg" variant="dark" style={{ backgroundColor: "transparent" }}>
       {/* style={{borderBottom: "1px solid black"}} */}
@@ -41,12 +67,17 @@ function Header() {
           </Nav>
           <Dropdown align="end">
             <Dropdown.Toggle variant="secondary" id="profile-dropdown">
-              <img
-                className="profile"
-                src="https://picsum.photos/200"
-                style={{ width: '30px', height: '30px', borderRadius: '50%' }}
-                alt="profile"
-              />
+              {user.profilePicture ? (
+                <img
+                  className="profile"
+                  src={user.profilePicture}
+                  style={{ width: '30px', height: '30px', borderRadius: '50%' }}
+                  alt="profile"
+                />
+              ) : (
+                <FaUser size={26} color="white" />
+              )}
+
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="dropdown-menu-dark">
@@ -76,6 +107,7 @@ function Header() {
               </Dropdown.Item>
               <Dropdown.Item>
                 <NavLink
+                  onClick={logoutHandler}
                   className="text-danger"
                 >
                   LogOut

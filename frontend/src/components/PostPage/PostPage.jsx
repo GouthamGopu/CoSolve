@@ -1,25 +1,69 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import './postpage.css'
 import { useParams } from 'react-router-dom'
+import axios from 'axios';
 
 function PostPage() {
-  const postId = useParams();
-    
+  const { postid } = useParams(); // Get "postid" from route parameters
+  const [post, setPost] = useState({});
+  const [admin, setAdmin] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch the post details
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8000/api/v1/post/${postid}/getpost`, { withCredentials: true });
+        if (res.data.success) {
+          setPost(res.data.post);
+        } else {
+          throw new Error('Failed to fetch post');
+        }
+      } catch (error) {
+        setError('Could not load post details');
+        console.error(error);
+      } 
+    };
+
+    fetchPost();
+  }, [postid]);
+
+  // Fetch the author's profile after fetching the post
+  useEffect(() => {
+    if (post.author) {
+      const fetchAuthor = async () => {
+        try {
+          const res = await axios.get(`http://localhost:8000/api/v1/user/${post.author}/profile`, { withCredentials: true });
+          if (res.data.success) {
+            setAdmin(res.data.user);
+          } else {
+            throw new Error('Failed to fetch author');
+          }
+        } catch (error) {
+          setError('Could not load author details');
+          console.error(error);
+        }
+      };
+
+      fetchAuthor();
+    }
+  }, [post.author]);
 
   return (
     <div>
         <div className='d-flex text-light p-3 justify-content-center gap-5'>
           <div className="detail p-4">
-            <h1>Service: Volunteer</h1>
-            <p className='fs-3 m-0'>Posted By: <a className='user'>User245</a></p>
-            <h4 className='m-0'>Location: Near SBI Bank, Ibrahimpatnam</h4>
-            <h4>Status: <span className='text-success'>Active</span></h4>
-            <h3 className='mt-5'>Description: <p className='fs-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quidem quibusdam voluptas quisquam distinctio expedita repudiandae corrupti facilis, delectus alias! Delectus maxime voluptatibus neque quos!\ ipsum dolor sit amet consectetur adipisicing elit. Eum rerum sed esse praesentium, aliquam velit!</p></h3>
+            <h1>Service: {post.title}</h1>
+            <p className='fs-3 m-0'>Posted By: <a className='user'>{admin.username}</a></p>
+            <h4 className='m-0'>Location: Near {post.location}</h4>
+            <h4>Status: <span className='text-success'>{post.status}</span></h4>
+            <h3 className='mt-5'>Description: <p className='fs-4'>{post.description}</p></h3>
           </div>
           <div className="post-img">
-              <img className='img-fluid img-thumbnail' src="https://picsum.photos/700/500" alt="" />
+              <img className='img-fluid img-thumbnail' src={post.image} alt="" />
           </div>
         </div>
 
@@ -28,9 +72,8 @@ function PostPage() {
             <Accordion.Item eventKey="0">
                 <Accordion.Header className='bg-dark'>Confirm booking</Accordion.Header>
                 <Accordion.Body className='book-det'>
-                    <h4 className='fs-5'>Phone Number: 9018203981</h4>
-                    <h4 className='fs-5'>Email: lol@gmail.com</h4>
-                    <h4 className='fs-5'>Instragram: lol23l2dsa</h4>
+                    <h4 className='fs-5'>Phone Number: {admin.phoneNumber}</h4>
+                    <h4 className='fs-5'>Email: {admin.email}</h4>
                 </Accordion.Body>
             </Accordion.Item>
             </Accordion>

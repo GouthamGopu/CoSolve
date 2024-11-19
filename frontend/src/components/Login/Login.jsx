@@ -1,11 +1,20 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.css";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthUser } from '../../redux/authSlice';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {user} = useSelector(store=>store.auth);
+  useEffect(() => {
+    if(user){
+      navigate("/home");
+    }
+  }, [])
   const [viewPassword, setViewPassword] = useState(false);
   const [regViewPassword, setRegViewPassword] = useState(false);
   const [regConfPassword, setRegConfPassword] = useState(false);
@@ -85,8 +94,9 @@ const Login = () => {
       }
     }
   };
-
+  const [loader , setLoader] = useState(false);
   const handleLoginSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
     //login api call
     try {
@@ -98,7 +108,7 @@ const Login = () => {
       })
       if(res.data.success){
         console.log(res.data.message);
-        console.log(res.data.user);
+        dispatch(setAuthUser(res.data.user));
         navigate("/home");
         setLoginData({
           email: "",
@@ -108,7 +118,9 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
-    
+    finally{
+      setLoader(false);
+    }
   };
 
   return (

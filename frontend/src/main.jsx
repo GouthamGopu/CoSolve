@@ -7,6 +7,10 @@ import { Route,RouterProvider,Routes,createBrowserRouter,
   createRoutesFromElements } from 'react-router-dom'
 import Layout from './Layout.jsx'
 import { About, Contact, CreatePost, Home, Ongoing, Profile,PostPage, Login} from './components/index.js';
+import { Provider } from 'react-redux'
+import store from './redux/store.js'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,12 +28,16 @@ const router = createBrowserRouter(
     </>
   )
 )
+let persistor = persistStore(store);
 
 createRoot(document.getElementById('root')).render(
   <div className='root'>
-
   <StrictMode>
-    <RouterProvider router={router} />
+  <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
   </StrictMode>,
   </div>
 )

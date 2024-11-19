@@ -84,7 +84,9 @@
 }
 
 .loc{
-    background-color: transparent;
+    background-color: black;
+    color: white;
+
 }
 
 .post-card{

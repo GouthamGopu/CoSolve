@@ -1,8 +1,13 @@
 import React from 'react'
 import './home.css'
+import { useDispatch, useSelector } from 'react-redux';
 import MyCard from '../Card/MyCard'
+import useGetAllPost from '../../hooks/useGetAllPost';
 
 function Home() {
+    useGetAllPost();
+    const {posts} = useSelector(store=>store.post)
+    const {user} =  useSelector(store=>store.auth);
   return (
     <div className='homepage text-light'>
         <div className='px-4 cont d-flex flex-row justify-content-center pt-5'>
@@ -47,11 +52,10 @@ function Home() {
                 </select>
             </div>
             <div className='d-flex flex-row post-card'>
-                <MyCard title= "Vehicle"/>
-                <MyCard title= "Other"/>
-                <MyCard title= "Volunteer"/>
-                <MyCard title= "Man Power"/>
-                <MyCard title= "Vehicle"/>
+            {
+            posts.map((post) => <MyCard key={post._id} post={post}/>)
+            }
+
             </div>
         </div>
     </div>
