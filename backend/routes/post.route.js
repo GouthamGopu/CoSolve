@@ -13,7 +13,7 @@ router.route('/:id/getuserposts').get(getUserPosts);
 router.route('/:id/addcomment').post(isAuthenticated, addComment);
 router.route('/:id/getcomments').get(getCommentsOfPost);
 router.route('/:id/delete').delete(isAuthenticated, deletePost);
-router.route('/:id/bookmark').post(isAuthenticated, bookmarkPost);
+router.route('/:id/bookmark').get(isAuthenticated, bookmarkPost);
 router.route('/:id/status').put(isAuthenticated, editPostStatus);
 router.route('/:id/addongoing').put(isAuthenticated, addPostToOngoing);
 router.route('/:id/removeongoing').put(isAuthenticated, removePostFromOngoing);

@@ -9,7 +9,7 @@
 
 .post-details{
   width: 40vw;
-  height: 48vh;
+  height: 45vh;
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -29,7 +29,7 @@
 }
 
 .custom-drp{
-  min-width: 25vw;
+  min-width: 23rem;
 }
 
 @keyframes customslideDown{

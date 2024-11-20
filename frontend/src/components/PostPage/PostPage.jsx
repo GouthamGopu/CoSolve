@@ -1,85 +1,173 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
-import './postpage.css'
-import { NavLink, useParams } from 'react-router-dom'
+import './postpage.css';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import Dropdown from 'react-bootstrap/Dropdown';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateBookmarks, updateOngoing } from '../../redux/authSlice';
+import { setPosts, updatePostStatus } from "../../redux/postSlice";
 function PostPage() {
   const { postid } = useParams();
-  const [post, setPost] = useState({});
+  const { user } = useSelector((store) => store.auth);
+  const { posts } = useSelector((store) => store.post);
+  const dispatch = useDispatch();
+
+
+
+  // Get the current post from the Redux store
+  const post = posts.find((post) => post._id === postid);
+
   const [admin, setAdmin] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const navigate = useNavigate();
 
-  // Fetch the post details
+
+  // Fetch author details
   useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8000/api/v1/post/${postid}/getpost`, { withCredentials: true });
-        if (res.data.success) {
-          setPost(res.data.post);
-        } else {
-          throw new Error('Failed to fetch post');
-        }
-      } catch (error) {
-        setError('Could not load post details');
-        console.error(error);
-      } 
-    };
-
-    fetchPost();
-  }, [postid]);
-
-  // Fetch the author's profile after fetching the post
-  useEffect(() => {
-    if (post.author) {
+    if (post?.author) {
       const fetchAuthor = async () => {
         try {
-          const res = await axios.get(`http://localhost:8000/api/v1/user/${post.author}/profile`, { withCredentials: true });
+          const res = await axios.get(`http://localhost:8000/api/v1/user/${post.author._id}/profile`, { withCredentials: true });
           if (res.data.success) {
             setAdmin(res.data.user);
           } else {
             throw new Error('Failed to fetch author');
           }
         } catch (error) {
-          setError('Could not load author details');
           console.error(error);
+          toast.error('Could not load author details');
         }
       };
 
       fetchAuthor();
     }
-  }, [post.author]);
+  }, [post?.author]);
 
+  // Bookmark handler
+  const bookmarkHandler = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/api/v1/post/${post?._id}/bookmark`, { withCredentials: true });
+      if (res.data.success) {
+        if (res.data.type === 'saved') {
+          setIsBookmarked(true);
+          dispatch(updateBookmarks({ postId: post?._id, isBookmarked: true }));
+        } else if (res.data.type === 'unsaved') {
+          setIsBookmarked(false);
+          dispatch(updateBookmarks({ postId: post?._id, isBookmarked: false }));
+        }
+        console.log(res.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to update bookmark status');
+    }
+  };
+
+  const deletePostHandler = async () => {
+    try {
+      const res = await axios.delete(`http://localhost:8000/api/v1/post/${post?._id}/delete`, { withCredentials: true });
+      if (res.data.success) {
+        const updatedPostData = posts.filter((postItem) => postItem?._id !== post?._id);
+        dispatch(setPosts(updatedPostData));
+        console.log(res.data.message);
+        navigate('/home');
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || 'Error deleting post');
+    }
+  };
+
+  const editStatusHandler = async (postId, newStatus) => {
+    try {
+      // Make API request to update post status
+      const res = await axios.put(
+        `http://localhost:8000/api/v1/post/${postId}/status`,
+        { status: newStatus },
+        { withCredentials: true }
+      );
+
+      if (res.data.success) {
+        dispatch(updatePostStatus({ postId, status: newStatus }));
+        console.log('Updated post:', res.data.post);
+      } else {
+        console.log('Failed to update post status');
+      }
+    } catch (error) {
+      console.error('Error updating post status:', error);
+    }
+  };
+
+  const ongoingHandler = async () => {
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/api/v1/post/${post._id}/addongoing`,
+        {}, // Empty request body
+        { withCredentials: true }
+      );
+
+      if (res.data.success) {
+        console.log(res.data.message);
+        dispatch(updateOngoing({ postId: post._id }));
+      } else {
+        console.log('Failed to update post status');
+      }
+    } catch (error) {
+      console.error('Error updating post status:', error);
+    }
+  };
+  const [loggined, setLoggined] = useState(post.author._id == user._id);
   return (
     <div>
-        <div className='d-flex text-light p-3 justify-content-center gap-5'>
-          <div className="detail p-4">
-            <h1>Service: {post.title}</h1>
-            <p className='fs-3 m-0'>Posted By: <NavLink to={`/home/profile/${admin._id}`} className='user'>{admin.username}</NavLink></p>
-            <h4 className='m-0'>Location: Near {post.location}</h4>
-            <h4>Status: <span className='text-success'>{post.status}</span></h4>
-            <h3 className='mt-5'>Description: <p className='fs-4'>{post.description}</p></h3>
-          </div>
-          <div className="post-img">
-              <img className='img-fluid img-thumbnail' src={post.image} alt="" />
-          </div>
+      <div className="d-flex position-relative text-light p-3 justify-content-center gap-5 postpage">
+        <div className="detail p-4">
+          <h1>Service: {post.title}</h1>
+          <p className="fs-3 m-0">
+            Posted By: <NavLink to={`/home/profile/${admin._id}`} className="user">{admin.username}</NavLink>
+          </p>
+          <h4 className="m-0">Location: Near {post.location}</h4>
+          <h4>Status: <span className="text-success">{post.status}</span></h4>
+          <h3 className="mt-5">Description: <p className="fs-4">{post.description}</p></h3>
         </div>
+        <div className="post-img d-flex">
+          <img className="img-fluid img-thumbnail" src={post.image} alt="" />
+          {loggined && <Dropdown>
+            <Dropdown.Toggle id="dropdown-basic" className="custom-dropdown-toggle">
+              <img src="/icons/dots1.svg" alt="" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="custom-body">
+              <Dropdown.Item onClick={deletePostHandler} className="drop-item text-danger">
+                Delete Post
+              </Dropdown.Item>
+              <Dropdown.Item className="drop-item">
+                <label className="text-light">Status:</label><br />
+                <button onClick={() => editStatusHandler(post._id, 'Active')} className="btn btn-success me-1">Active</button>
+                <button onClick={() => editStatusHandler(post._id, 'Closed')} className="btn btn-danger">Closed</button>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>}
+        </div>
+      </div>
 
-        <div className='w-100 mt-3 d-flex justify-content-center button'>
-            <Accordion className='w-25' flush>
-            <Accordion.Item eventKey="0">
-                <Accordion.Header className='bg-dark'>Confirm booking</Accordion.Header>
-                <Accordion.Body className='book-det'>
-                    <h4 className='fs-5'>Phone Number: {admin.phoneNumber}</h4>
-                    <h4 className='fs-5'>Email: {admin.email}</h4>
-                </Accordion.Body>
-            </Accordion.Item>
-            </Accordion>
-        </div>
+      <div className="w-100 mt-3 d-flex justify-content-center button">
+        <Accordion className="w-25" flush>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header onClick={() => !loggined && ongoingHandler()} className="bg-dark">
+              Confirm booking
+            </Accordion.Header>
+            <Accordion.Body className="book-det">
+              <h4 className="fs-5">Phone Number: {admin.phoneNumber}</h4>
+              <h4 className="fs-5">Email: {admin.email}</h4>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+        <button onClick={bookmarkHandler} className="bg-light border-1 ms-2 bookmark">
+          <img className="book-img" src={isBookmarked ? '/icons/bookmark1.svg' : '/icons/bookmark.svg'} alt="" />
+        </button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default PostPage
+export default PostPage;

@@ -318,7 +318,7 @@ export const editPostStatus = async (req, res) => {
         const { status } = req.body; // New status value
 
         // Validate the status value
-        if (!['Open', 'In Progress', 'Closed'].includes(status)) {
+        if (!['Active', 'Closed'].includes(status)) {
             return res.status(400).json({ message: 'Invalid status' });
         }
 

@@ -11,7 +11,6 @@ const Profile = () => {
   const { user } = useSelector(store => store.auth); 
   const { posts } = useSelector(store => store.post); 
   const [admin, setAdmin] = useState({}); 
-  const [error, setError] = useState(''); 
 
   useEffect(() => {
     if (userid) {
@@ -21,7 +20,7 @@ const Profile = () => {
           if (res.data.success) {
             setAdmin(res.data.user);
           } else {
-            throw new Error('Failed to fetch author');
+            console.log('Failed to fetch author');
           }
         } catch (error) {
           setError('Could not load author details');
@@ -34,8 +33,6 @@ const Profile = () => {
   }, [userid]);
 
   const [loggined, setLoggined] = useState(user._id === admin._id);
-
-
   useEffect(() => {
     setLoggined(user._id === admin._id);
   }, [admin, user._id]);
@@ -78,32 +75,35 @@ const Profile = () => {
           <hr />
           <div className="text-center mb-3">
             <button
-              className={`btn tw-text-white btn-link ${activeTab === 'posts' ? 'fw-bold' : ''}`}
+              className={`btn text-light btn-link ${activeTab === 'posts' ? 'fw-bold' : ''}`}
               onClick={() => handleTabChange('posts')}
             >
               POSTS
             </button>
-            <button
-              className={`btn tw-text-white btn-link ${activeTab === 'saved' ? 'fw-bold' : ''}`}
-              onClick={() => handleTabChange('saved')}
-            >
-              SAVED
-            </button>
+            {loggined && (
+              <button
+                className={`btn text-light btn-link ${activeTab === 'saved' ? 'fw-bold' : ''}`}
+                onClick={() => handleTabChange('saved')}
+              >
+                SAVED
+              </button>
+            )}
           </div>
-          <div className="row g-3">
+          <div className=" g-3">
             {activeTab === 'posts' ? (
-              <div className="d-flex gap-2">
+              <div className="d-flex gap-4">
                 {posts
                   .filter(post => post.author._id === admin._id) // Match posts for the viewed profile
                   .map(post => (
                     <MyCard key={post._id} post={post} />
                   ))}
               </div>
-            ) : activeTab === 'saved' ? (
-              <div>Saved posts logic here</div>
+            ) : activeTab === 'saved' && loggined ? (
+              <div className="d-flex gap-2">
+                bookmarks
+              </div>
             ) : null}
           </div>
-          {error && <div className="alert alert-danger mt-3">{error}</div>}
         </div>
       </div>
     </div>
