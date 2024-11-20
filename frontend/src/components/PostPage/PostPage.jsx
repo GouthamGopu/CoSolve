@@ -129,7 +129,7 @@ function PostPage() {
   return (
     <div>
       <div className='w-100 d-flex justify-content-center text-light'>
-          <h1>Title</h1>
+          <h1>{post.title}</h1>
       </div>
 
       <div className='w-100 d-flex justify-content-center text-light'>
@@ -137,7 +137,6 @@ function PostPage() {
       </div>
       <div className="d-flex position-relative text-light p-3 justify-content-center gap-5 postpage mt-4">
         <div className="detail p-4">
-          <h1>Service: {post.title}</h1>
           <p className="fs-3 m-0">
             Posted By: <NavLink to={`/home/profile/${admin._id}`} className="user">{admin.username}</NavLink>
           </p>
@@ -146,7 +145,7 @@ function PostPage() {
           <h3 className="mt-5">Description: <p className="fs-4">{post.description}</p></h3>
         </div>
         <div className="post-img d-flex">
-          <img className="img-fluid img-thumbnail" src={post.image ? `${post.image}`:'/images/no-image.jpeg'} alt="" />
+          <img className="img-fluid img-thumbnail" src={post.image ? `${post.image}`:'/images/no-image.jpg'} alt="" />
           {loggined && <Dropdown>
             <Dropdown.Toggle id="dropdown-basic" className="custom-dropdown-toggle">
               <img src="/icons/dots1.svg" alt="" />

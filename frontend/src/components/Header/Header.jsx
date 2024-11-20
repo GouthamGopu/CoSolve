@@ -85,15 +85,16 @@ function Header() {
               <Dropdown.Item>
                 <NavLink
                   to="/home/create"
-                  className={({ isActive }) => (isActive ? "text-light" : "")}
+                  className="link-prim"
                 >
                   Create Post
                 </NavLink>
               </Dropdown.Item>
+
               <Dropdown.Item>
                 <NavLink
                   to="/home/ongoing"
-                  className={({ isActive }) => (isActive ? "text-light" : "")}
+                  className="link-prim"
                 >
                   Ongoing
                 </NavLink>
@@ -101,7 +102,7 @@ function Header() {
               <Dropdown.Item>
                 <NavLink
                   to={`/home/profile/${user._id}`}
-                  className={({ isActive }) => (isActive ? "text-light" : "")}
+                  className="link-prim"
                 >
                   Profile
                 </NavLink>
@@ -109,7 +110,7 @@ function Header() {
               <Dropdown.Item>
                 <NavLink
                   onClick={logoutHandler}
-                  className="text-danger"
+                  className="text-danger text-decoration-none"
                 >
                   LogOut
                 </NavLink>

@@ -19,3 +19,11 @@
 .link.active::after {
   width: 100%; /* Full underline when active */
 }
+.link-prim{
+  color:white;
+  text-decoration: none;
+}
+
+.logout{
+  text-decoration: none;
+}
