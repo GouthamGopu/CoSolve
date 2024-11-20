@@ -1,6 +1,7 @@
 import React from 'react';
 import './ongoing.css';
-import OngoingCard from '../OngoingCard/OngoingCard'
+import OngoingCardid from '../OngoingCard/OngoingCardid'
+import OngoingCardObj from '../OngoingCard/OngoingCardObj'
 import { useSelector } from 'react-redux';
 
 function MyCard(props) {
@@ -16,7 +17,14 @@ function MyCard(props) {
       <div className='d-flex flex-row post-card mt-5'>
         {
           user.ongoing.length > 0 ? (
-            user.ongoing.map((post) => <OngoingCard key={post._id} post={post} />)
+            user.ongoing.map((post, index) => {
+              if (typeof post === 'object' && post !== null) { 
+                return <OngoingCardObj key={index} post={post} />;
+              } else {
+                return <OngoingCardid key={index} post={post} />;
+              }
+            })
+            
           ) : (
             <div className='d-flex justify-content-center'>
               No ongoing posts
