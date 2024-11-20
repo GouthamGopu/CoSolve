@@ -22,10 +22,6 @@
     max-height: 25vh;
 }
 
-.suce:hover{
-    box-shadow: 0px 0px 5px 5px rgb(25, 134, 84)
-}
-
 .dan:hover{
     box-shadow: 0px 0px 5px 5px rgb(220, 53, 69)
 }

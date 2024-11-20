@@ -203,7 +203,7 @@ export const getProfile = async (req, res) => {
 export const editProfile = async (req, res) => {
     try {
         const userId = req.id;
-        const { username, email, phoneNumber, gender, emergencyContact } = req.body;
+        const { username, dateOfBirth, phoneNumber, gender, emergencyContact } = req.body;
         const profilePicture = req.file;
         let cloudResponse;
 
@@ -224,6 +224,7 @@ export const editProfile = async (req, res) => {
 
         // Update user fields if they are provided in the request body
         if (username) user.username = username;
+        if (dateOfBirth) user.dateOfBirth = dateOfBirth;
         if (phoneNumber) user.phoneNumber = phoneNumber;
         if (gender) user.gender = gender;
         if (emergencyContact) {

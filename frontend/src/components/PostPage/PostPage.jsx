@@ -22,6 +22,14 @@ function PostPage() {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (user?.bookmarks?.includes(post?._id)) {
+      setIsBookmarked(true);
+    } else {
+      setIsBookmarked(false);
+    }
+  }, [user?.bookmarks, post?._id]);
+
 
   // Fetch author details
   useEffect(() => {
@@ -120,18 +128,25 @@ function PostPage() {
   const [loggined, setLoggined] = useState(post.author._id == user._id);
   return (
     <div>
-      <div className="d-flex position-relative text-light p-3 justify-content-center gap-5 postpage">
+      <div className='w-100 d-flex justify-content-center text-light'>
+          <h1>Title</h1>
+      </div>
+
+      <div className='w-100 d-flex justify-content-center text-light'>
+          <hr className='w-50 bg-light text-light'/>
+      </div>
+      <div className="d-flex position-relative text-light p-3 justify-content-center gap-5 postpage mt-4">
         <div className="detail p-4">
           <h1>Service: {post.title}</h1>
           <p className="fs-3 m-0">
             Posted By: <NavLink to={`/home/profile/${admin._id}`} className="user">{admin.username}</NavLink>
           </p>
           <h4 className="m-0">Location: Near {post.location}</h4>
-          <h4>Status: <span className="text-success">{post.status}</span></h4>
+          <h4>Status: <span className={post.status=='Active'?'text-success':'text-danger'}>{post.status}</span></h4>
           <h3 className="mt-5">Description: <p className="fs-4">{post.description}</p></h3>
         </div>
         <div className="post-img d-flex">
-          <img className="img-fluid img-thumbnail" src={post.image} alt="" />
+          <img className="img-fluid img-thumbnail" src={post.image ? `${post.image}`:'/images/no-image.jpeg'} alt="" />
           {loggined && <Dropdown>
             <Dropdown.Toggle id="dropdown-basic" className="custom-dropdown-toggle">
               <img src="/icons/dots1.svg" alt="" />
@@ -150,7 +165,7 @@ function PostPage() {
         </div>
       </div>
 
-      <div className="w-100 mt-3 d-flex justify-content-center button">
+      <div className="w-100 mt-5 d-flex justify-content-center button">
         <Accordion className="w-25" flush>
           <Accordion.Item eventKey="0">
             <Accordion.Header onClick={() => !loggined && ongoingHandler()} className="bg-dark">

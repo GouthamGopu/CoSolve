@@ -1,4 +1,5 @@
 import axios from 'axios';
+import './header.css'
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
@@ -40,7 +41,7 @@ function Header() {
             <Nav.Item className="me-5">
               <NavLink
                 to="/home"
-                className={({ isActive }) => (isActive ? "text-light" : "")}
+                className='text-light text-decoration-none'
                 style={{ fontSize: "1.2rem" }}
               >
                 Home
@@ -49,7 +50,7 @@ function Header() {
             <Nav.Item className="me-5">
               <NavLink
                 to="/home/about"
-                className={({ isActive }) => (isActive ? "text-light" : "")}
+                className={({ isActive }) => (isActive ? "link active" : "link")}
                 style={{ fontSize: "1.2rem" }}
               >
                 About
@@ -58,7 +59,7 @@ function Header() {
             <Nav.Item className="me-4">
               <NavLink
                 to="/home/contact"
-                className={({ isActive }) => (isActive ? "text-light" : "")}
+                className={({ isActive }) => (isActive ? "link active" : "link")}
                 style={{ fontSize: "1.2rem" }}
               >
                 Contact

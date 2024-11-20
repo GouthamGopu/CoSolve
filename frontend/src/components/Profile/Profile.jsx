@@ -8,9 +8,9 @@ import axios from 'axios';
 const Profile = () => {
   const { userid } = useParams();
   const [activeTab, setActiveTab] = useState('posts');
-  const { user } = useSelector(store => store.auth); 
-  const { posts } = useSelector(store => store.post); 
-  const [admin, setAdmin] = useState({}); 
+  const { user } = useSelector(store => store.auth);
+  const { posts } = useSelector(store => store.post);
+  const [admin, setAdmin] = useState({});
 
   useEffect(() => {
     if (userid) {
@@ -41,9 +41,21 @@ const Profile = () => {
     setActiveTab(tab);
   };
 
+  const calculateRating = () => {
+    if (admin?.rating?.length > 0) {
+      const total = admin.rating.reduce((sum, rating) => sum + rating, 0);
+      const average = total / admin.rating.length;
+      return average.toFixed(1);
+    } 
+      return 4.5;
+
+  };
+
+  console.log(admin);
+
   return (
-    <div className="text-light">
-      <div className="row justify-content-center">
+    <div className="text-light slideleft mt-5">
+      <div className="row w-100 justify-content-center">
         <div className="col-lg-8">
           <div className="row mb-4">
             <div className="col-4 text-center">
@@ -57,32 +69,37 @@ const Profile = () => {
               ) : (
                 <FaUser size={50} color="white" />
               )}
+
             </div>
             <div className="col-8">
-              <div className="d-flex flex-column gap-3">
+              <div className="d-flex flex-column gap-1">
                 <div className="d-flex align-items-center gap-2">
-                  <h3 className="m-0">{admin.username}</h3>
+                  <h2 className="m-0">{admin.username}</h2>
                   {loggined && (
                     <NavLink to="/home/profileEdit" className="btn btn-outline-secondary btn-sm text-light">
                       Edit Profile
                     </NavLink>
                   )}
+
                 </div>
-                <div>Rating or other profile info here</div>
+                <p className='fs-4'>
+                  Rating: <strong className={calculateRating()>3.5?'text-success':'text-danger'}>{calculateRating()}</strong>
+                  <span className='ms-5'>{admin.posts?.length || 0} Post</span>
+                </p>
               </div>
             </div>
           </div>
           <hr />
           <div className="text-center mb-3">
             <button
-              className={`btn text-light btn-link ${activeTab === 'posts' ? 'fw-bold' : ''}`}
+              className={`btn text-light btn-link text-decoration-none ${activeTab === 'posts' ? 'fw-bold' : ''}`}
               onClick={() => handleTabChange('posts')}
             >
               POSTS
             </button>
             {loggined && (
               <button
-                className={`btn text-light btn-link ${activeTab === 'saved' ? 'fw-bold' : ''}`}
+                className={`btn text-light btn-link text-decoration-none ${activeTab === 'saved' ? 'fw-bold' : ''}`}
                 onClick={() => handleTabChange('saved')}
               >
                 SAVED
@@ -100,7 +117,13 @@ const Profile = () => {
               </div>
             ) : activeTab === 'saved' && loggined ? (
               <div className="d-flex gap-2">
-                bookmarks
+                {admin.bookmarks.length > 0 ? (
+                  admin.bookmarks.map(bookmark => (
+                    <MyCard key={bookmark._id} post={bookmark} />
+                  ))
+                ) : (
+                  <p>No bookmarks available</p>
+                )}
               </div>
             ) : null}
           </div>
