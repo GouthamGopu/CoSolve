@@ -99,7 +99,7 @@ function Header() {
               </Dropdown.Item>
               <Dropdown.Item>
                 <NavLink
-                  to="/home/profile"
+                  to={`/home/profile/${user._id}`}
                   className={({ isActive }) => (isActive ? "text-light" : "")}
                 >
                   Profile

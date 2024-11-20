@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route,RouterProvider,Routes,createBrowserRouter,
   createRoutesFromElements } from 'react-router-dom'
 import Layout from './Layout.jsx'
-import { About, Contact, CreatePost, Home, Ongoing, Profile,PostPage, Login} from './components/index.js';
+import { About, Contact, CreatePost, Home, Ongoing, Profile,PostPage, Login, EditProfile} from './components/index.js';
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -20,7 +20,8 @@ const router = createBrowserRouter(
       <Route path='' element  = {<Home />} />
       <Route path='about' element = {<About />} />
       <Route path='contact' element = {<Contact />} />
-      <Route path='profile' element = {<Profile />} />
+      <Route path='profile/:userid' element = {<Profile />} />
+      <Route path='profileEdit' element={<EditProfile />} />
       <Route path='ongoing' element  = {<Ongoing />} />
       <Route path='create' element  = {<CreatePost />} />
       <Route path='post/:postid' element = {<PostPage />} />

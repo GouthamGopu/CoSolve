@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import './postpage.css'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import axios from 'axios';
 
 function PostPage() {
-  const { postid } = useParams(); // Get "postid" from route parameters
+  const { postid } = useParams();
   const [post, setPost] = useState({});
   const [admin, setAdmin] = useState({});
   const [loading, setLoading] = useState(true);
@@ -57,7 +57,7 @@ function PostPage() {
         <div className='d-flex text-light p-3 justify-content-center gap-5'>
           <div className="detail p-4">
             <h1>Service: {post.title}</h1>
-            <p className='fs-3 m-0'>Posted By: <a className='user'>{admin.username}</a></p>
+            <p className='fs-3 m-0'>Posted By: <NavLink to={`/home/profile/${admin._id}`} className='user'>{admin.username}</NavLink></p>
             <h4 className='m-0'>Location: Near {post.location}</h4>
             <h4>Status: <span className='text-success'>{post.status}</span></h4>
             <h3 className='mt-5'>Description: <p className='fs-4'>{post.description}</p></h3>

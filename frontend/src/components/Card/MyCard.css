@@ -17,12 +17,9 @@
     transition: all 0.3s;
 }
 
-.animcard{
-
-}
-
 .card-img{
-    max-height: 10rem;
+    min-height: 25vh;
+    max-height: 25vh;
 }
 
 .suce:hover{
