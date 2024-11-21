@@ -8,7 +8,7 @@ import {
   createRoutesFromElements
 } from 'react-router-dom'
 import Layout from './Layout.jsx'
-import { About, Contact, CreatePost, Home, Ongoing, Profile, PostPage, Login, EditProfile } from './components/index.js';
+import { About, Contact, CreatePost, Home, Ongoing, Profile, PostPage, Login, EditProfile ,Rating} from './components/index.js';
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -19,17 +19,19 @@ import 'react-toastify/dist/ReactToastify.css';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='/' element={<Login />} />
-      <Route path='home' element={<Layout />}>
-        <Route path='' element={<Home />} />
-        <Route path='about' element={<About />} />
-        <Route path='contact' element={<Contact />} />
-        <Route path='profile/:userid' element={<Profile />} />
-        <Route path='profileEdit' element={<EditProfile />} />
-        <Route path='ongoing' element={<Ongoing />} />
-        <Route path='create' element={<CreatePost />} />
-        <Route path='post/:postid' element={<PostPage />} />
+    <Route path='/' element = {<Login />} />
+    <Route path='home' element = {<Layout />}>
+      <Route path='' element  = {<Home />} />
+      <Route path='about' element = {<About />} />
+      <Route path='contact' element = {<Contact />} />
+      <Route path='profile/:userid' element = {<Profile />} />
+      <Route path='profileEdit' element={<EditProfile />} />
+      <Route path='ongoing' element  = {<Ongoing />}>
+        <Route path='rating/:postid' element = {<Rating />} />
       </Route>
+      <Route path='create' element  = {<CreatePost />} />
+      <Route path='post/:postid' element = {<PostPage />} />
+    </Route>
     </>
   )
 )

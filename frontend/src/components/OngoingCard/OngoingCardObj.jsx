@@ -15,7 +15,7 @@ function OngoingCardObj(props) {
           Status:  {props.post.status} 
         </Card.Text>
         <button className='w-100 btn btn-light'>Completed</button>
-        <button className='w-100 btn btn-light mt-2'>Not Completed</button>
+        <button className='w-100 btn btn-light mt-2'>Remove</button>
 
       </Card.Body>
     </Card>

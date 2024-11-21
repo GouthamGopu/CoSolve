@@ -413,13 +413,13 @@ export const removePostFromOngoing = async (req, res) => {
         await user.save();
 
         return res.status(200).json({
-            message: 'Post removed from ongoing and added to completed section',
+            message: 'Post removed from ongoing',
             success: true,
         });
     } catch (error) {
         console.error(error);
         return res.status(500).json({
-            message: 'Error removing post from ongoing section',
+            message: 'Error removing post from ongoing',
             success: false,
         });
     }
@@ -473,7 +473,7 @@ export const addRatingToReview = async (req, res) => {
         await reviewer.save();
 
         return res.status(200).json({
-            message: "Review added and post status updated",
+            message: "Review added",
             success: true,
             data: review,
         });

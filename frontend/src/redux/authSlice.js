@@ -26,6 +26,12 @@ const authSlice = createSlice({
         }
       }
     },
+    removeOngoing: (state, action) => {
+      const { postId } = action.payload;
+      if (state.user) {
+        state.user.ongoing = state.user.ongoing.filter(id => id.toString() !== postId.toString());
+      }
+    },
     setUserProfile: (state, action) => {
       state.userProfile = action.payload;
     },
@@ -39,6 +45,7 @@ export const {
   setAuthUser,
   updateBookmarks,
   updateOngoing,
+  removeOngoing,
   setUserProfile,
   setSelectedUser
 } = authSlice.actions;

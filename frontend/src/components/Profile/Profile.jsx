@@ -42,16 +42,15 @@ const Profile = () => {
   };
 
   const calculateRating = () => {
-    if (admin?.rating?.length > 0) {
-      const total = admin.rating.reduce((sum, rating) => sum + rating, 0);
-      const average = total / admin.rating.length;
+    if (admin?.ratings?.length > 0) {
+      const total = admin.ratings.reduce((sum, rating) => sum + rating, 0);
+      const average = total / admin.ratings.length;
       return average.toFixed(1);
     } 
       return 4.5;
 
   };
 
-  console.log(admin);
 
   return (
     <div className="text-light slideleft mt-5">
@@ -63,7 +62,7 @@ const Profile = () => {
                 <img
                   className="profile"
                   src={admin.profilePicture}
-                  style={{ width: '46px', height: '46px', borderRadius: '50%' }}
+                  style={{ width: '92px', height: '92px', borderRadius: '50%' }}
                   alt="profile"
                 />
               ) : (
@@ -110,7 +109,7 @@ const Profile = () => {
             {activeTab === 'posts' ? (
               <div className="d-flex gap-4">
                 {posts
-                  .filter(post => post.author._id === admin._id) // Match posts for the viewed profile
+                  .filter(post => post.author._id === admin._id)
                   .map(post => (
                     <MyCard key={post._id} post={post} />
                   ))}

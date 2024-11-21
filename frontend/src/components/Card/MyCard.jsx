@@ -12,7 +12,7 @@ function MyCard(props) {
         <Card.Title className='text-center fs-2'>{props.post.title}</Card.Title>
         <Card.Text>
           Location: {props.post.location}<br />
-          Status: {props.post.status} 
+          Status: <span className={props.post.status=='Active'?'text-success':'text-danger'}>{props.post.status}</span> 
         </Card.Text>
         <NavLink to={`/home/post/${props.post._id}`} className='w-100 btn btn-light'>Details</NavLink>
       </Card.Body>

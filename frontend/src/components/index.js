@@ -9,5 +9,6 @@ import PostPage from "./PostPage/PostPage";
 import Login from "./Login/Login";
 import Background from "./Background/Background";
 import EditProfile from "./EditProfile/EditProfile";
+import Rating from "./Rating/Rating";
 
-export {Header, Contact,Home,About,Profile,Ongoing,CreatePost,PostPage,Login,Background,EditProfile}
+export {Header, Contact,Home,About,Profile,Ongoing,CreatePost,PostPage,Login,Background,EditProfile,Rating}
