@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import './createpost.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 function CreatePost() {
   const [file, setFile] = useState(null);
@@ -45,7 +46,16 @@ function CreatePost() {
       });
 
       if (res.data.success) {
-        console.log(res.data.message);
+        toast.success(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
         // Reset form after successful post
         setFile(null);
         setTitle('');
@@ -54,7 +64,16 @@ function CreatePost() {
         setLocation('');
         setImagePreview('');
       } else {
-        console.log(res.data.message);
+        toast.error(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     } catch (error) {
       console.error(error);

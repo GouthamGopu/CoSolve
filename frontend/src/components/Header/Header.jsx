@@ -8,7 +8,7 @@ import { setSelectedPost } from '../../redux/postSlice';
 import { setAuthUser } from '../../redux/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaUser } from 'react-icons/fa';
-
+import { ToastContainer, toast } from 'react-toastify';
 function Header() {
   const [logging, setLogging] = useState(false)
   const dispatch = useDispatch();
@@ -21,10 +21,28 @@ function Header() {
       if (res.data.success) {
         dispatch(setAuthUser(null));
         navigate("/");
-        console.log(res.data.message);
+        toast.success(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     } catch (error) {
-      console.log(error.response.data.message);
+      toast.error(res.data.message, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     } finally {
       setLogging(false);
     }

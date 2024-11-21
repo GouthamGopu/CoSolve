@@ -3,6 +3,7 @@ import './contact.css';
 import { FaInstagram } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import { ToastContainer, toast } from 'react-toastify';
 
 function Contact() {
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,6 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     setLoading(true);
-    setMessage("");
     e.preventDefault();
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbxuH-MB_dwi5Uqo-6OM_GFzd_8Ej9dX41uGfmD8AyaZBwJSbxFxr0weBMA810N9ZdonVw/exec";
@@ -48,13 +48,30 @@ function Contact() {
           subjectOfProblem: "",
           description: "",
         });
-        setMessage("Message sent successfully!");
+        toast.success('Message sent successfully', {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       } else {
-        setMessage("Failed to send message. Please try again.");
+        toast.error("Failed to send message. Please try again.", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     } catch (error) {
       console.error('Error!', error.message);
-      setMessage("There was an error submitting your message. Please try again later.");
     } finally {
       setLoading(false);
     }

@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateBookmarks, updateOngoing } from '../../redux/authSlice';
 import { setPosts, updatePostStatus } from "../../redux/postSlice";
+import { ToastContainer, toast } from 'react-toastify';
 function PostPage() {
   const { postid } = useParams();
   const { user } = useSelector((store) => store.auth);
@@ -64,11 +65,30 @@ function PostPage() {
           setIsBookmarked(false);
           dispatch(updateBookmarks({ postId: post?._id, isBookmarked: false }));
         }
-        console.log(res.data.message);
+        toast.success(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      } else {
+        toast.error(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     } catch (error) {
       console.error(error);
-      toast.error('Failed to update bookmark status');
     }
   };
 
@@ -78,12 +98,31 @@ function PostPage() {
       if (res.data.success) {
         const updatedPostData = posts.filter((postItem) => postItem?._id !== post?._id);
         dispatch(setPosts(updatedPostData));
-        console.log(res.data.message);
+        toast.success(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
         navigate('/home');
+      } else{
+        toast.error(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || 'Error deleting post');
     }
   };
 
@@ -98,9 +137,27 @@ function PostPage() {
 
       if (res.data.success) {
         dispatch(updatePostStatus({ postId, status: newStatus }));
-        console.log('Updated post:', res.data.post);
+        toast.success(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       } else {
-        console.log('Failed to update post status');
+        toast.error(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     } catch (error) {
       console.error('Error updating post status:', error);
@@ -116,10 +173,28 @@ function PostPage() {
       );
 
       if (res.data.success) {
-        console.log(res.data.message);
+        toast.success(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
         dispatch(updateOngoing({ postId: post._id }));
       } else {
-        console.log('Failed to update post status');
+        toast.error(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     } catch (error) {
       console.error('Error updating post status:', error);

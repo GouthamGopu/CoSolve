@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser } from '../../redux/authSlice';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -79,7 +80,16 @@ const Login = () => {
           withCredentials: true
         })
         if(res.data.success){
-          console.log(res.data.message);
+          toast.success(res.data.message, {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
           setRegisterData({
             username: "",
             email: "",
@@ -88,9 +98,31 @@ const Login = () => {
             password: "",
           });
           toggleFlip(false);
+        } else {
+          toast.error(res.data.message, {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
         }
       } catch (error) {
-        console.log(error);
+        toast.error(error, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+          });
       }
     }
   };
@@ -107,16 +139,47 @@ const Login = () => {
         withCredentials: true
       })
       if(res.data.success){
-        console.log(res.data.message);
+        toast.success(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
         dispatch(setAuthUser(res.data.user));
         navigate("/home");
         setLoginData({
           email: "",
           password: "",
         });
+      } else{
+        toast.error(res.data.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+          });
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
     }
     finally{
       setLoader(false);
