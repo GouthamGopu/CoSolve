@@ -69,6 +69,9 @@ function CreatePost() {
       <div className='w-100 d-flex justify-content-center mt-4'>
         <h1>Create Post</h1>
       </div>
+      <div className='w-100 d-flex justify-content-center text-light'>
+          <hr className='w-50 bg-light text-light'/>
+      </div>
       <div className='d-flex overflow-hidden text-light p-3 justify-content-center gap-5'>
         <div className='post-image slideleft'>
           <div className='img-preview'>

@@ -20,7 +20,7 @@ function EditProfile() {
         <div className='prof-img'>
               <img src={file} className='img-fluid img-thumbnail prof-img' alt="" />
             </div>
-            <label className='btn btn-light mt-3 ms-5' htmlFor='file-upload'>
+            <label className='btn btn-light mt-3 ms-4' htmlFor='file-upload'>
               Upload Profile
             </label>
             <input type="file"
@@ -29,7 +29,7 @@ function EditProfile() {
               onChange={handleChange} />
         </div>
 
-        <div className='profile-form d-flex flex-column align-items-center'>
+        <div className='profile-form d-flex flex-column align-items-center ms-2'>
           <div className="floating-label-group pass-con mb-3">
               <img src="/icons/user.svg" className="username-img" alt="" />
               <input type="text" className="form-control custom-input" autoComplete="off" autoFocus required />
@@ -39,12 +39,12 @@ function EditProfile() {
           <div className='d-flex flex-row gap-3'>
             <div className="floating-label-group pass-con mb-3">
                 <img src="/icons/phone.svg" className="username-img" alt="" />
-                <input type="number" className="form-control custom-input-2" autoComplete="off" autoFocus required />
+                <input type="text" className="form-control custom-input-2" autoComplete="off" autoFocus required />
                 <label className="floating-label">Phone Number</label>
             </div>
-            <div class="floating-label-group mb-0">
+            <div class="dob">
                 <img src="/icons/calendar.svg" class="username-img" alt="" />
-                <input type="date" id="username" class="form-control custom-input-2 pe-1" autocomplete="off" autofocus required />
+                <input type="date" id="username" class="form-control custom-input-2 pe-1 ps-1" autocomplete="off" autofocus required />
             </div>
           </div>
 
@@ -58,12 +58,24 @@ function EditProfile() {
 
           <div className="floating-label-group pass-con mb-3">
               <img src="/icons/phone.svg" className="username-img" alt="" />
-              <input type="number" className="form-control custom-input" autoComplete="off" autoFocus required />
+              <input type="text" className="form-control custom-input" autoComplete="off" autoFocus required />
               <label className="floating-label">Phone Number</label>
           </div>
 
+          <div className='d-flex flex-row gap-4'>
+            <label htmlFor="iden-upload" className=' btn btn-light'>Identity Proof</label>
+            <input type="file"
+              id='iden-upload'
+              className='d-none' required/>
 
-          <div className='w-25'>
+          <label htmlFor="Add-upload" className=' btn btn-light'>Address Proof</label>
+            <input type="file"
+              id='Add-upload'
+              className='d-none' required/>
+          </div>
+
+
+          <div className='w-25 mt-3'>
             <button className='w-100 btn btn-light'>Submit</button>
           </div>
         </div>

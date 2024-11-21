@@ -65,6 +65,16 @@ function Header() {
                 Contact
               </NavLink>
             </Nav.Item>
+
+            <Nav.Item className="ms-3">
+              <NavLink
+                to='/home/create'
+                className={({ isActive }) => (isActive ? "link active" : "link")}
+                style={{ fontSize: "1.2rem" }}
+              >
+                Create Post
+              </NavLink>
+            </Nav.Item>
           </Nav>
           <Dropdown align="end">
             <Dropdown.Toggle variant="secondary" id="profile-dropdown">
@@ -82,14 +92,7 @@ function Header() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="dropdown-menu-dark">
-              <Dropdown.Item>
-                <NavLink
-                  to="/home/create"
-                  className="link-prim"
-                >
-                  Create Post
-                </NavLink>
-              </Dropdown.Item>
+              
 
               <Dropdown.Item>
                 <NavLink

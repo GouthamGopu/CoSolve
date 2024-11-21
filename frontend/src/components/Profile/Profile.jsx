@@ -76,7 +76,7 @@ const Profile = () => {
                 <div className="d-flex align-items-center gap-2">
                   <h2 className="m-0">{admin.username}</h2>
                   {loggined && (
-                    <NavLink to="/home/profileEdit" className="btn btn-outline-secondary btn-sm text-light">
+                    <NavLink to="/home/profileEdit" className="btn btn-sm btn-danger text-light">
                       Edit Profile
                     </NavLink>
                   )}

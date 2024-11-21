@@ -70,7 +70,7 @@ input:not(:focus):valid ~ .floating-label {
     left: 0px;
     font-size: 11px;
     opacity: 1;
-    color: white;
+    color: white !important;
 }
 
 textarea:focus ~ .floating-label,

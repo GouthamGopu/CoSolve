@@ -16,12 +16,13 @@ function Home() {
                 <p className='caption'>Bringing the world with collaborative solution</p>
                 <div className='d-flex align-content-center'>
                     <p className='des'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui facere, earum tempore blanditiis aperiam, quas deleniti assumenda esse vel quae aspernatur, nisi itaque eius doloribus.
+                    At CoSolve, we believe in harnessing the power of connection to solve real-life problems. Our platform is designed to bridge gaps, bringing people together to share resources, skills, and opportunities.
                        </p>
                 </div>
             </div>
             <div className='image'>
-                <img className='img-fluid img-thumbnail' src="https://picsum.photos/700/500" alt="" />
+            {/* https://picsum.photos/700/500 */}
+                <img className='img-fluid img-thumbnail' src="/images/home.jpg" alt="" />
             </div>
         </div>
 

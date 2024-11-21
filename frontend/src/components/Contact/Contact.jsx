@@ -66,7 +66,7 @@ function Contact() {
         <div className='contact'>
           <h1>Contact</h1>
           <form onSubmit={handleSubmit}>
-            <div className="floating-label-group pass-con">
+            <div className="floating-label-group pass-con mb-4">
               <img src="/icons/user.svg" className="username-img" alt="" />
               <input
                 type="text"
@@ -80,7 +80,7 @@ function Contact() {
               />
               <label className="floating-label">Name</label>
             </div>
-            <div className="floating-label-group pass-con">
+            <div className="floating-label-group pass-con mb-4">
               <img src="/icons/mail.svg" className="username-img" alt="" />
               <input
                 type="email"
@@ -93,7 +93,7 @@ function Contact() {
               />
               <label className="floating-label">Email</label>
             </div>
-            <div className="floating-label-group pass-con">
+            <div className="floating-label-group pass-con mb-4">
               <img src="/icons/book.svg" className="username-img" alt="" />
               <input
                 type="text"
@@ -106,7 +106,7 @@ function Contact() {
               />
               <label className="floating-label">Subject of problem</label>
             </div>
-            <div className="floating-label-group pass-con">
+            <div className="floating-label-group pass-con mb-4">
               <textarea
                 className="form-control custom-input txt-area"
                 name="description"
