@@ -73,8 +73,8 @@ function CreatePost() {
           <hr className='w-50 bg-light text-light'/>
       </div>
       <div className='d-flex overflow-hidden text-light p-3 justify-content-center gap-5'>
-        <div className='post-image slideleft'>
-          <div className='img-preview'>
+        <div className='post-image slideleft overflow-hidden'>
+          <div className='img-preview  overflow-hidden'>
             {imagePreview && <img src={imagePreview} className='img-fluid img-thumbnail preimg' alt='Preview' />}
           </div>
           <input

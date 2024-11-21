@@ -143,10 +143,10 @@ const Login = () => {
                       className="d-block w-100 com-img"
                       alt="..."
                     />
-                    <div className="carousel-caption d-none d-md-block">
+                    {/* <div className="carousel-caption d-none d-md-block">
                       <h5>First slide label</h5>
                       <p>Some representative placeholder content for the first slide.</p>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="carousel-item">
                     <img
@@ -174,7 +174,7 @@ const Login = () => {
               </div>
             </div>
             <div className="p-0 login-form p-2 pt-4">
-              <img src="icons/logo3.png" className="logo-img" alt="" />
+              <img src="/images/logo.png" className="logo-img" alt="" />
               <h1 className="msg">Welcome Back!</h1>
               <form onSubmit={handleLoginSubmit}>
                 <div className="floating-label-group">
@@ -250,10 +250,6 @@ const Login = () => {
                       className="d-block w-100 com-img"
                       alt="..."
                     />
-                    <div className="carousel-caption d-none d-md-block">
-                      <h5>First slide label</h5>
-                      <p>Some representative placeholder content for the first slide.</p>
-                    </div>
                   </div>
                   <div className="carousel-item">
                     <img
@@ -281,7 +277,7 @@ const Login = () => {
               </div>
             </div>
             <div className="p-0 login-form p-2 pt-0">
-              <img src="icons/logo3.png" className="logo-img" alt="" />
+              <img src="/images/logo.png" className="logo-img" alt="" />
               <h1 className="msg mt-0">Hello!</h1>
               <form onSubmit={handleRegisterSubmit} action="register" className="reg1">
                 <div className="d-flex flex-row inp">

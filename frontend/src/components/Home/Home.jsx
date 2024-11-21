@@ -36,14 +36,17 @@ function Home() {
                     <option value="2">Hyderabad</option>
                     <option value="3">L B Nagar</option>
                     <option value="4">Nagole</option>
-                    <option value="5">Secunderabad</option>
+                    <option value="5">Tarnaka</option>
+                    <option value="6">Secunderabad</option>
+                    <option value="6">Hubsiguda</option>
+                    <option value="6">Uppal</option>
                 </select>
 
                 <select name="Location" className='loc border-light text-light rounded-4 ps-3' id="">
                     <option value="Location">Service</option>
-                    <option value="1">Vehicle</option>
-                    <option value="2">Volunteers</option>
-                    <option value="3">Other</option>
+                    <option value="1">Transport</option>
+                    <option value="2">Rental</option>
+                    <option value="3">Skills</option>
                 </select>
 
                 <select name="Location" className='loc border-light text-light rounded-4 ps-3' id="">
