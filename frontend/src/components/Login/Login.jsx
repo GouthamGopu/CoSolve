@@ -59,16 +59,18 @@ const Login = () => {
   };
 
 
-  const [passwordError, setPasswordError] = useState("");
+
+  const [loader , setLoader] = useState(false);
 
   const handleRegisterSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
 
     const confirmPassword = e.target.confirmPassword.value;
 
     // Check if password and confirm password match
     if (registerData.password !== confirmPassword) {
-      setPasswordError("Error,Re-enter the password again");
+      toast.error("Error,Re-enter the password again");
     } else {
       setPasswordError("");
       //Register api call
@@ -108,7 +110,6 @@ const Login = () => {
             draggable: true,
             progress: undefined,
             theme: "light",
-            transition: Bounce,
             });
         }
       } catch (error) {
@@ -121,24 +122,24 @@ const Login = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          transition: Bounce,
           });
+      } finally {
+        setLoader(false);
       }
     }
   };
-  const [loader , setLoader] = useState(false);
   const handleLoginSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
-    //login api call
     try {
-      const res = await  axios.post("http://localhost:8000/api/v1/user/login",loginData,{
-        headers : {
-          'Content-Type' : 'application/json'
+      const res = await axios.post("http://localhost:8000/api/v1/user/login", loginData, {
+        headers: {
+          'Content-Type': 'application/json',
         },
-        withCredentials: true
-      })
-      if(res.data.success){
+        withCredentials: true,
+      });
+      console.log(res.data.success);
+      if (res.data.success) {
         toast.success(res.data.message, {
           position: "bottom-right",
           autoClose: 2000,
@@ -148,14 +149,14 @@ const Login = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
         dispatch(setAuthUser(res.data.user));
         navigate("/home");
         setLoginData({
           email: "",
           password: "",
         });
-      } else{
+      } else {
         toast.error(res.data.message, {
           position: "bottom-right",
           autoClose: 2000,
@@ -165,26 +166,37 @@ const Login = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          transition: Bounce,
-          });
+        });
       }
     } catch (error) {
-      toast.error(error, {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
+      if (error.response && error.response.status === 401) {
+        toast.error(error.response.data.message || "Invalid username or password", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         });
-    }
-    finally{
+      } else {
+        toast.error("An unexpected error occurred. Please try again.", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } finally {
       setLoader(false);
     }
   };
+  
 
   return (
     <div className="page m-0">
@@ -284,8 +296,10 @@ const Login = () => {
                   </a>
                 </div>
                 <div className="btn-style mt-4">
-                  <button type="submit" className="btn btn-dark submit">
-                    Submit
+                  <button type="submit" className="btn btn-dark submit d-flex flex-row justify-content-center align-items-center"
+                  disabled= {loader}>
+                    {loader ? (((<svg className='loading' viewBox="25 25 50 50">
+                      <circle r="10" cy="50" cx="50" className='login-circle'></circle></svg>))) : "Login"}
                   </button>
                 </div>
                 <div className="text-center mt-2">
@@ -440,8 +454,6 @@ const Login = () => {
                     onClick={() => setRegConfPassword(!regConfPassword)}
                   />
                 </div>
-                {/* display error if password dont match */}
-                {passwordError && <p style={{ color: "red" }}>Error</p>}
                 <div className="btn-style mt-4">
                   <button type="submit" className="btn btn-dark submit">
                     Register

@@ -136,10 +136,11 @@ function Contact() {
             <div className="w-100 d-flex justify-content-center">
               <button
                 type="submit"
-                className="btn btn-light w-50 mt-3 mb-5"
+                className="btn btn-light w-50 mt-3 mb-5 d-flex justify-content-center align-items-center submit"
                 disabled={loading}
               >
-                {loading ? "Sending..." : "Submit"}
+                {loading ? ((<svg className='loading' viewBox="25 25 50 50">
+                      <circle r="10" cy="50" cx="50" className='home-circle'></circle></svg>)): "Submit"}
               </button>
             </div>
           </form>

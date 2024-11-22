@@ -207,8 +207,9 @@ function EditProfile() {
 
           {/* Submit Button */}
           <div className="w-25 mt-3">
-            <button onClick={handleSubmit} className="w-100 btn btn-light" disabled={loading}>
-              {loading ? 'Updating...' : 'Submit'}
+            <button onClick={handleSubmit} className="w-100 btn btn-light d-flex justify-content-center align-items-center submit" disabled={loading}>
+              {loading ? ( ((<svg className='loading' viewBox="25 25 50 50">
+                <circle r="10" cy="50" cx="50" className='home-circle'></circle></svg>))) : 'Submit'}
             </button>
           </div>
         </div>

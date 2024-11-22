@@ -97,3 +97,8 @@ textarea:not(:focus):valid ~ .floating-label {
     height: 15vh;
     padding-left: 0px;
 }
+
+.submit{
+    width: 10rem;
+    height: 3rem;
+}

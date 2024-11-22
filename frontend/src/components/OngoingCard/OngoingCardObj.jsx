@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 function OngoingCardObj(props) {
+  console.log("object")
   return (
     <Card style={{ width: '22rem' }} className='animcard suce text-light img-thumbnail'>
       <Card.Img className='card-img' variant="top" src={props.post.image ? `${props.post.image}`:'/images/no-image.jpeg'}/>
@@ -23,3 +24,4 @@ function OngoingCardObj(props) {
 }
 
 export default OngoingCardObj
+

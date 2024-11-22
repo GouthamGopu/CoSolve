@@ -150,13 +150,14 @@ function CreatePost() {
         </div>
       </div>
 
-      <div className='d-flex w-100 custom-slidedown justify-content-center mt-3'>
+      <div className='d-flex w-100 custom-slidedown justify-content-center mt-3 submit alingn-items-center'>
         <button
           className='btn btn-light w-25'
           onClick={handlePostSubmit}
           disabled={loading}
         >
-          {loading ? 'Creating...' : 'Create Post'}
+          {loading ? ( ((<svg className='loading' viewBox="25 25 50 50">
+            <circle r="10" cy="50" cx="50" className='home-circle'></circle></svg>))) : 'Create Post'}
         </button>
       </div>
     </div>
