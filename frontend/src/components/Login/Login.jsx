@@ -72,8 +72,6 @@ const Login = () => {
     if (registerData.password !== confirmPassword) {
       toast.error("Error,Re-enter the password again");
     } else {
-      setPasswordError("");
-      //Register api call
       try {
         const res = await  axios.post("http://localhost:8000/api/v1/user/register",registerData,{
           headers : {

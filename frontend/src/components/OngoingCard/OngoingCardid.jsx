@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {removeOngoing } from '../../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
 function OngoingCardid(props) {
+  console.log('id');
   const dispatch = useDispatch();
   const { posts } = useSelector(store=>store.post);
 
