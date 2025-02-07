@@ -16,7 +16,7 @@ const Profile = () => {
     if (userid) {
       const fetchAuthor = async () => {
         try {
-          const res = await axios.get(`http://localhost:8000/api/v1/user/${userid}/profile`, { withCredentials: true });
+          const res = await axios.get(`https://cosolve-backend.onrender.com/api/v1/user/${userid}/profile`, { withCredentials: true });
           if (res.data.success) {
             setAdmin(res.data.user);
           } else {

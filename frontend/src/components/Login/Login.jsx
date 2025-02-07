@@ -73,7 +73,7 @@ const Login = () => {
       toast.error("Error,Re-enter the password again");
     } else {
       try {
-        const res = await  axios.post("http://localhost:8000/api/v1/user/register",registerData,{
+        const res = await  axios.post("https://cosolve-backend.onrender.com/api/v1/user/register",registerData,{
           headers : {
             'Content-Type' : 'application/json'
           },
@@ -130,7 +130,7 @@ const Login = () => {
     setLoader(true);
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/user/login", loginData, {
+      const res = await axios.post("https://cosolve-backend.onrender.com/api/v1/user/login", loginData, {
         headers: {
           'Content-Type': 'application/json',
         },

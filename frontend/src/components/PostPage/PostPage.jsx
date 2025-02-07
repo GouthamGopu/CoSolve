@@ -37,7 +37,7 @@ function PostPage() {
     if (post?.author) {
       const fetchAuthor = async () => {
         try {
-          const res = await axios.get(`http://localhost:8000/api/v1/user/${post.author._id}/profile`, { withCredentials: true });
+          const res = await axios.get(`https://cosolve-backend.onrender.com/api/v1/user/${post.author._id}/profile`, { withCredentials: true });
           if (res.data.success) {
             setAdmin(res.data.user);
           } else {
@@ -56,7 +56,7 @@ function PostPage() {
   // Bookmark handler
   const bookmarkHandler = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/v1/post/${post?._id}/bookmark`, { withCredentials: true });
+      const res = await axios.get(`https://cosolve-backend.onrender.com/api/v1/post/${post?._id}/bookmark`, { withCredentials: true });
       if (res.data.success) {
         if (res.data.type === 'saved') {
           setIsBookmarked(true);
@@ -94,7 +94,7 @@ function PostPage() {
 
   const deletePostHandler = async () => {
     try {
-      const res = await axios.delete(`http://localhost:8000/api/v1/post/${post?._id}/delete`, { withCredentials: true });
+      const res = await axios.delete(`https://cosolve-backend.onrender.com/api/v1/post/${post?._id}/delete`, { withCredentials: true });
       if (res.data.success) {
         const updatedPostData = posts.filter((postItem) => postItem?._id !== post?._id);
         dispatch(setPosts(updatedPostData));
@@ -130,7 +130,7 @@ function PostPage() {
     try {
       // Make API request to update post status
       const res = await axios.put(
-        `http://localhost:8000/api/v1/post/${postId}/status`,
+        `https://cosolve-backend.onrender.com/api/v1/post/${postId}/status`,
         { status: newStatus },
         { withCredentials: true }
       );
@@ -167,7 +167,7 @@ function PostPage() {
   const ongoingHandler = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/v1/post/${post._id}/addongoing`,
+        `https://cosolve-backend.onrender.com/api/v1/post/${post._id}/addongoing`,
         {}, // Empty request body
         { withCredentials: true }
       );

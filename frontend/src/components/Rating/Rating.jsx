@@ -26,7 +26,7 @@ function Rating() {
     if (post?.author) {
       const fetchAuthor = async () => {
         try {
-          const res = await axios.get(`http://localhost:8000/api/v1/user/${post.author._id}/profile`, { withCredentials: true });
+          const res = await axios.get(`https://cosolve-backend.onrender.com/api/v1/user/${post.author._id}/profile`, { withCredentials: true });
           if (res.data.success) {
             setUser(res.data.user);
           } else {
@@ -45,7 +45,7 @@ function Rating() {
   const addReview = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/v1/post/${post._id}/rating`,
+        `https://cosolve-backend.onrender.com/api/v1/post/${post._id}/rating`,
         {
           reviewedUserId: user._id,
           rating,

@@ -20,7 +20,7 @@ function OngoingCardid(props) {
 
   const removeOngoingHandler = async ()=>{
     try{
-      const res = await axios.put(`http://localhost:8000/api/v1/post/${post._id}/removeongoing`,{},{ withCredentials: true });
+      const res = await axios.put(`https://cosolve-backend.onrender.com/api/v1/post/${post._id}/removeongoing`,{},{ withCredentials: true });
       if(res.data.success){
         toast.success(res.data.message);
         dispatch(removeOngoing({ postId: post._id }));
